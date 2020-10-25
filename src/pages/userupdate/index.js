@@ -32,13 +32,16 @@ const UserUpdate = () => {
   const setOldPassword = useState(oldPassword);
   const [password, setPassword] = useState('');
 
+  const [name, setName] = useState(user.name);
+  const [phone, setPhone] = useState(user.phone);
+
   const [userUpdate, setUserUpdate] = useState();
 
   async function handleUpdateUser() {
     await api
       .put(
         `/users/${uid}`,
-        { uid, email, password },
+        { uid, name, phone, email, password },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('tokenAuth')}`,
@@ -55,6 +58,24 @@ const UserUpdate = () => {
 
   return (
     <>
+      <FormGroup>
+        <Label>Nome</Label>
+        <Input
+          type="text"
+          value={user.name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </FormGroup>
+
+      <FormGroup>
+        <Label>Telefone</Label>
+        <Input
+          type="text"
+          value={user.phone}
+          onChange={(e) => setPhone(e.target.value)}
+        />
+      </FormGroup>
+
       <FormGroup>
         <Label>Email</Label>
         <Input
